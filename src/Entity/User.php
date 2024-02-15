@@ -72,6 +72,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $plainPassword = null;
 
+    #[ORM\OneToMany(mappedBy: 'user_sport', targetEntity: Sport::class)]
+    private Collection $sports;
+
+    public function __construct()
+    {
+        $this->sports = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -176,6 +184,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Sport>
+     */
+    public function getSports(): Collection
+    {
+        return $this->sports;
+    }
+
+    public function addSport(Sport $sport): static
+    {
+        if (!$this->sports->contains($sport)) {
+            $this->sports->add($sport);
+            $sport->setUserSport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSport(Sport $sport): static
+    {
+        if ($this->sports->removeElement($sport)) {
+            // set the owning side to null (unless already changed)
+            if ($sport->getUserSport() === $this) {
+                $sport->setUserSport(null);
+            }
+        }
+
+        return $this;
     }
 
 }
