@@ -22,16 +22,19 @@ class GameRepository extends ServiceEntityRepository
     }
 
     public function getGamesByUser($userid, $sportid){
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT psp, pga FROM App\Entity\Game pga 
-                        LEFT JOIN App\Entity\Sport psp WITH psp.id = pga.sport 
-                        WHERE pga.user = :userid  
-                          AND pga.sport = :sportid'
-            )
-            ->setParameter('userid', $userid)
-            ->setParameter('sportid', $sportid)
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT pga.id as game_id, *  FROM public.game pga 
+                    LEFT JOIN public.sport psp ON psp.id = pga.sport_id 
+                    WHERE pga.user_id = :userid  
+                    AND pga.sport_id = :sportid
+                    ORDER BY pga.created_at desc";
+
+        $stmt = $conn->executeQuery($sql, ['userid'=>$userid, 'sportid'=>$sportid]);
+
+        $resultSet = $stmt->fetchAllAssociative();
+
+        return $resultSet;
     }
 
 //    /**

@@ -60,6 +60,12 @@ class Game
     #[ORM\ManyToOne(inversedBy: 'games')]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $finishedAt = null;
+
 
     public function getGame(): array{
         return [
@@ -249,6 +255,30 @@ class Game
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getFinishedAt(): ?\DateTimeImmutable
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(?\DateTimeImmutable $finishedAt): static
+    {
+        $this->finishedAt = $finishedAt;
 
         return $this;
     }

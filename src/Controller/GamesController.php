@@ -21,7 +21,7 @@ class GamesController extends AbstractController
         $sportid = $request->get('sportid');
         $response = $gameRepository->getGamesByUser($userid, $sportid);
 
-        if(!empty($response )){
+        if(!empty($response)){
             return new JsonResponse($response, 200);
 
         }else{
@@ -37,6 +37,7 @@ class GamesController extends AbstractController
         $game = new Game();
         $game->setSport($sportid);
         $game->setUser($userid);
+        $game->setCreatedAt(date_create_immutable());
         $entityManager->persist($game);
         $entityManager->flush();
 
