@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\GamesRepository;
+use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GamesRepository::class)]
+#[ORM\Entity(repositoryClass: GameRepository::class)]
 #[ApiResource]
-class Games
+class Game
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,13 +18,13 @@ class Games
     #[ORM\ManyToOne(inversedBy: 'games')]
     private ?Sport $sport = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $player_one = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $player_two = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $individual = null;
 
     #[ORM\Column(nullable: true)]
@@ -57,6 +57,17 @@ class Games
     #[ORM\Column(nullable: true)]
     private ?int $points = null;
 
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    private ?User $user = null;
+
+
+    public function getGame(): array{
+        return [
+            'id' => $this->id,
+            'sport_id' => $this->sport,
+            'user_id' => $this->user,
+        ];
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -226,6 +237,18 @@ class Games
     public function setPoints(?int $points): static
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

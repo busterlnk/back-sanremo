@@ -72,12 +72,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $plainPassword = null;
 
-    #[ORM\OneToMany(mappedBy: 'user_sport', targetEntity: Sport::class)]
-    private Collection $sports;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Game::class)]
+    private Collection $games;
 
     public function __construct()
     {
-        $this->sports = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,33 +187,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Sport>
+     * @return Collection<int, Game>
      */
-    public function getSports(): Collection
+    public function getGames(): Collection
     {
-        return $this->sports;
+        return $this->games;
     }
 
-    public function addSport(Sport $sport): static
+    public function addGame(Game $game): static
     {
-        if (!$this->sports->contains($sport)) {
-            $this->sports->add($sport);
-            $sport->setUserSport($this);
+        if (!$this->games->contains($game)) {
+            $this->games->add($game);
+            $game->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeSport(Sport $sport): static
+    public function removeGame(Game $game): static
     {
-        if ($this->sports->removeElement($sport)) {
+        if ($this->games->removeElement($game)) {
             // set the owning side to null (unless already changed)
-            if ($sport->getUserSport() === $this) {
-                $sport->setUserSport(null);
+            if ($game->getUser() === $this) {
+                $game->setUser(null);
             }
         }
 
         return $this;
     }
-
 }

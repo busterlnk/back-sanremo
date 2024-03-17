@@ -20,15 +20,12 @@ class Sport
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sports')]
-    private ?User $user_sport = null;
-
-    #[ORM\OneToMany(mappedBy: 'sport', targetEntity: Games::class)]
-    private Collection $games;
+    #[ORM\OneToMany(mappedBy: 'sport', targetEntity: Game::class)]
+    private Collection $game;
 
     public function __construct()
     {
-        $this->games = new ArrayCollection();
+        $this->game = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,39 +45,27 @@ class Sport
         return $this;
     }
 
-    public function getUserSport(): ?User
-    {
-        return $this->user_sport;
-    }
-
-    public function setUserSport(?User $user_sport): static
-    {
-        $this->user_sport = $user_sport;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Games>
+     * @return Collection<int, Game>
      */
-    public function getGames(): Collection
+    public function getGame(): Collection
     {
-        return $this->games;
+        return $this->game;
     }
 
-    public function addGame(Games $game): static
+    public function addGame(Game $game): static
     {
-        if (!$this->games->contains($game)) {
-            $this->games->add($game);
+        if (!$this->game->contains($game)) {
+            $this->game->add($game);
             $game->setSport($this);
         }
 
         return $this;
     }
 
-    public function removeGame(Games $game): static
+    public function removeGame(Game $game): static
     {
-        if ($this->games->removeElement($game)) {
+        if ($this->game->removeElement($game)) {
             // set the owning side to null (unless already changed)
             if ($game->getSport() === $this) {
                 $game->setSport(null);
