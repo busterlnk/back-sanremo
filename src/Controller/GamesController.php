@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 class GamesController extends AbstractController
 {
@@ -37,10 +38,13 @@ class GamesController extends AbstractController
         $game = new Game();
         $game->setSport($sportid);
         $game->setUser($userid);
+        $game->setPlayerOne($request->get('player_one'));
+        $game->setPlayerTwo($request->get('player_two'));
+        $game->setIndividual($request->get('individual'));
         $game->setCreatedAt(date_create_immutable());
         $entityManager->persist($game);
         $entityManager->flush();
 
-        return new JsonResponse($game->getGame(), 200);
+        return new JsonResponse(['id' => $game->getId()], 200);
     }
 }
