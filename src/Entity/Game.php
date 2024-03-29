@@ -19,10 +19,10 @@ class Game
     private ?Sport $sport = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $player_one = null;
+    private ?string $playerOne = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $player_two = null;
+    private ?string $playerTwo = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $individual = null;
@@ -93,24 +93,24 @@ class Game
 
     public function getPlayerOne(): ?string
     {
-        return $this->player_one;
+        return $this->playerOne;
     }
 
-    public function setPlayerOne(string $player_one): static
+    public function setPlayerOne(string $playerOne): static
     {
-        $this->player_one = $player_one;
+        $this->playerOne = $playerOne;
 
         return $this;
     }
 
     public function getPlayerTwo(): ?string
     {
-        return $this->player_two;
+        return $this->playerTwo;
     }
 
-    public function setPlayerTwo(string $player_two): static
+    public function setPlayerTwo(string $playerTwo): static
     {
-        $this->player_two = $player_two;
+        $this->playerTwo = $playerTwo;
 
         return $this;
     }
