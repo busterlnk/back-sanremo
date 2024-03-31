@@ -3,19 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\GameRepository;
+use App\Repository\PadelGameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GameRepository::class)]
+#[ORM\Entity(repositoryClass: PadelGameRepository::class)]
 #[ApiResource]
-class Game
+class PadelGame
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\ManyToOne(inversedBy: 'padelGames')]
     private ?Sport $sport = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -55,9 +55,9 @@ class Game
     private ?int $saque = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $points = null;
+    private ?string $mode = null;
 
-    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\ManyToOne(inversedBy: 'padelGames')]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
@@ -66,8 +66,10 @@ class Game
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $finishedAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $winner = null;
 
-    public function getGame(): array{
+    public function getPadelGame(): array{
         return [
             'id' => $this->id,
             'sport_id' => $this->sport,
@@ -235,14 +237,14 @@ class Game
         return $this;
     }
 
-    public function getPoints(): ?int
+    public function getMode(): ?string
     {
-        return $this->points;
+        return $this->mode;
     }
 
-    public function setPoints(?int $points): static
+    public function setMode(?string $mode): static
     {
-        $this->points = $points;
+        $this->mode = $mode;
 
         return $this;
     }
@@ -279,6 +281,18 @@ class Game
     public function setFinishedAt(?\DateTimeImmutable $finishedAt): static
     {
         $this->finishedAt = $finishedAt;
+
+        return $this;
+    }
+
+    public function getWinner(): ?string
+    {
+        return $this->winner;
+    }
+
+    public function setWinner(?string $winner): static
+    {
+        $this->winner = $winner;
 
         return $this;
     }

@@ -20,12 +20,12 @@ class Sport
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'sport', targetEntity: Game::class)]
-    private Collection $game;
+    #[ORM\OneToMany(mappedBy: 'sport', targetEntity: PadelGame::class)]
+    private Collection $padelGame;
 
     public function __construct()
     {
-        $this->game = new ArrayCollection();
+        $this->padelGame = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,29 +46,29 @@ class Sport
     }
 
     /**
-     * @return Collection<int, Game>
+     * @return Collection<int, PadelGame>
      */
     public function getGame(): Collection
     {
-        return $this->game;
+        return $this->padelGame;
     }
 
-    public function addGame(Game $game): static
+    public function addGame(PadelGame $padelGame): static
     {
-        if (!$this->game->contains($game)) {
-            $this->game->add($game);
-            $game->setSport($this);
+        if (!$this->padelGame->contains($padelGame)) {
+            $this->padelGame->add($padelGame);
+            $padelGame->setSport($this);
         }
 
         return $this;
     }
 
-    public function removeGame(Game $game): static
+    public function removeGame(PadelGame $padelGame): static
     {
-        if ($this->game->removeElement($game)) {
+        if ($this->padelGame->removeElement($padelGame)) {
             // set the owning side to null (unless already changed)
-            if ($game->getSport() === $this) {
-                $game->setSport(null);
+            if ($padelGame->getSport() === $this) {
+                $padelGame->setSport(null);
             }
         }
 
