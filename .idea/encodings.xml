@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Dockerfile" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/README.md" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/docker-composeback" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker-ensure-initdb.sh" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker-entrypoint.sh" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/nginx/Dockerfile" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/nginx/default.conf" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/nginx/nginx.conf" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/php/Dockerfile" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/php/docker.conf" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/php/php.ini" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/docker/php/www.conf" charset="US-ASCII" />
+    <file url="file://$PROJECT_DIR$/php/Dockerfile" charset="US-ASCII" />
+  </component>
+</project>
