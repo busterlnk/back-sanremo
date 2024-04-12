@@ -37,7 +37,7 @@ class PadelGame
     private ?int $p13s = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $p1ps = null;
+    private ?string $p1ps = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $p21s = null;
@@ -49,7 +49,7 @@ class PadelGame
     private ?int $p23s = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $p2ps = null;
+    private ?string $p2ps = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $saque = null;
@@ -165,12 +165,12 @@ class PadelGame
         return $this;
     }
 
-    public function getP1ps(): ?int
+    public function getP1ps(): ?string
     {
         return $this->p1ps;
     }
 
-    public function setP1ps(?int $p1ps): static
+    public function setP1ps(?string $p1ps): static
     {
         $this->p1ps = $p1ps;
 
@@ -213,12 +213,12 @@ class PadelGame
         return $this;
     }
 
-    public function getP2ps(): ?int
+    public function getP2ps(): ?string
     {
         return $this->p2ps;
     }
 
-    public function setP2ps(?int $p2ps): static
+    public function setP2ps(?string $p2ps): static
     {
         $this->p2ps = $p2ps;
 
