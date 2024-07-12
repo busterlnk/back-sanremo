@@ -75,9 +75,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: PadelGame::class)]
     private Collection $padelGames;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: TenisGame::class)]
+    private Collection $tenisGames;
+
     public function __construct()
     {
         $this->padelGames = new ArrayCollection();
+        $this->tenisGames = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -210,6 +214,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($padelGame->getUser() === $this) {
                 $padelGame->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TenisGame>
+     */
+    public function getTenisGames(): Collection
+    {
+        return $this->tenisGames;
+    }
+
+    public function addTenisGame(TenisGame $tenisGame): static
+    {
+        if (!$this->tenisGames->contains($tenisGame)) {
+            $this->tenisGames->add($tenisGame);
+            $tenisGame->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTenisGame(TenisGame $tenisGame): static
+    {
+        if ($this->tenisGames->removeElement($tenisGame)) {
+            // set the owning side to null (unless already changed)
+            if ($tenisGame->getUsers() === $this) {
+                $tenisGame->setUsers(null);
             }
         }
 

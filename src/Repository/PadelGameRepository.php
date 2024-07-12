@@ -24,7 +24,7 @@ class PadelGameRepository extends ServiceEntityRepository
     public function getPadelGamesByUser($userid){
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT pga.id as game_id, *  FROM public.padel_game pga 
+        $sql = "SELECT pga.id as game_id, 'padel' as sport, 1 as sport_id, *  FROM public.padel_game pga 
                     WHERE pga.user_id = :userid  
                     AND pga.winner is null
                     ORDER BY pga.created_at desc";

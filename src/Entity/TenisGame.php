@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\PadelGameRepository;
+use App\Repository\TenisGameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PadelGameRepository::class)]
+#[ORM\Entity(repositoryClass: TenisGameRepository::class)]
 #[ApiResource]
-class PadelGame
+class TenisGame
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -51,10 +51,7 @@ class PadelGame
     #[ORM\Column(nullable: true)]
     private ?int $saque = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $mode = null;
-
-    #[ORM\ManyToOne(inversedBy: 'padelGames')]
+    #[ORM\ManyToOne(inversedBy: 'tenisGames')]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
@@ -66,12 +63,6 @@ class PadelGame
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $winner = null;
 
-    public function getPadelGame(): array{
-        return [
-            'id' => $this->id,
-            'user_id' => $this->user,
-        ];
-    }
     public function getId(): ?int
     {
         return $this->id;
@@ -82,7 +73,7 @@ class PadelGame
         return $this->playerOne;
     }
 
-    public function setPlayerOne(string $playerOne): static
+    public function setPlayerOne(?string $playerOne): static
     {
         $this->playerOne = $playerOne;
 
@@ -94,7 +85,7 @@ class PadelGame
         return $this->playerTwo;
     }
 
-    public function setPlayerTwo(string $playerTwo): static
+    public function setPlayerTwo(?string $playerTwo): static
     {
         $this->playerTwo = $playerTwo;
 
@@ -106,7 +97,7 @@ class PadelGame
         return $this->individual;
     }
 
-    public function setIndividual(bool $individual): static
+    public function setIndividual(?bool $individual): static
     {
         $this->individual = $individual;
 
@@ -217,18 +208,6 @@ class PadelGame
     public function setSaque(?int $saque): static
     {
         $this->saque = $saque;
-
-        return $this;
-    }
-
-    public function getMode(): ?string
-    {
-        return $this->mode;
-    }
-
-    public function setMode(?string $mode): static
-    {
-        $this->mode = $mode;
 
         return $this;
     }
