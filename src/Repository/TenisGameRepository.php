@@ -42,7 +42,7 @@ class TenisGameRepository extends ServiceEntityRepository
     public function getHistoryTenisGamesByUser($userid){
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT tga.id as game_id, *, AGE(tga.finished_at, tga.created_at) as duration  FROM public.tenis_game tga 
+        $sql = "SELECT tga.id as game_id, 2 as sport_id , *, AGE(tga.finished_at, tga.created_at) as duration FROM public.tenis_game tga 
                     WHERE tga.user_id = :userid 
                     AND tga.winner is not null
                     ORDER BY tga.created_at desc";
