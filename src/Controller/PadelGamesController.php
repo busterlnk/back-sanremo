@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\PadelGame;
-use App\Entity\Sport;
 use App\Entity\User;
 use App\Repository\PadelGameRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,10 +18,8 @@ class PadelGamesController extends AbstractController
     #[Route('/api/padel/create_game', methods: ['POST'])]
     public function createNewGame(Request $request, EntityManagerInterface $entityManager):JsonResponse{
         $userid = $entityManager->getRepository(User::class)->find($request->get('userid'));
-        $sportid = $entityManager->getRepository(Sport::class)->find($request->get('sportid'));
 
         $padelGame = new PadelGame();
-        $padelGame->setSport($sportid);
         $padelGame->setUser($userid);
         $padelGame->setPlayerOne($request->get('player_one'));
         $padelGame->setPlayerTwo($request->get('player_two'));

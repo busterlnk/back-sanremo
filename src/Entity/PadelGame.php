@@ -15,9 +15,6 @@ class PadelGame
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'padelGames')]
-    private ?Sport $sport = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $playerOne = null;
 
@@ -72,25 +69,12 @@ class PadelGame
     public function getPadelGame(): array{
         return [
             'id' => $this->id,
-            'sport_id' => $this->sport,
             'user_id' => $this->user,
         ];
     }
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSport(): ?Sport
-    {
-        return $this->sport;
-    }
-
-    public function setSport(?Sport $sport): static
-    {
-        $this->sport = $sport;
-
-        return $this;
     }
 
     public function getPlayerOne(): ?string
