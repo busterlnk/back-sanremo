@@ -7,7 +7,7 @@ use App\Repository\PadelGameRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PadelGameRepository::class)]
-#[ApiResource]
+#[ApiResource(mercure: true)]
 class PadelGame
 {
     #[ORM\Id]
