@@ -64,6 +64,18 @@ services:
       - app
 ###< symfony/mercure-bundle ###
 
+
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./front:/app
+    networks:
+      - app
+
 volumes:
   database_data:
 
