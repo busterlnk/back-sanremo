@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     libxpm-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
-    && docker-php-ext-install -j$(nproc) gd pdo pdo_pgsql mbstring zip exif pcntl
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_pgsql intl mbstring zip exif pcntl
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

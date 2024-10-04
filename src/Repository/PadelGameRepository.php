@@ -21,34 +21,30 @@ class PadelGameRepository extends ServiceEntityRepository
         parent::__construct($registry, PadelGame::class);
     }
 
-    public function getGamesByUser($userid, $sportid){
+    public function getPadelGamesByUser($userid){
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT pga.id as game_id, *  FROM public.padel_game pga 
-                    LEFT JOIN public.sport psp ON psp.id = pga.sport_id 
+        $sql = "SELECT pga.id as game_id, 'padel' as sport, 1 as sport_id, *  FROM public.padel_game pga 
                     WHERE pga.user_id = :userid  
-                    AND pga.sport_id = :sportid
                     AND pga.winner is null
                     ORDER BY pga.created_at desc";
 
-        $stmt = $conn->executeQuery($sql, ['userid'=>$userid, 'sportid'=>$sportid]);
+        $stmt = $conn->executeQuery($sql, ['userid'=>$userid]);
 
         $resultSet = $stmt->fetchAllAssociative();
 
         return $resultSet;
     }
 
-    public function getHistoryGamesByUser($userid, $sportid){
+    public function getHistoryPadelGamesByUser($userid){
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT pga.id as game_id, *, AGE(pga.finished_at, pga.created_at) as duration  FROM public.padel_game pga 
-                    LEFT JOIN public.sport psp ON psp.id = pga.sport_id 
-                    WHERE pga.user_id = :userid  
-                    AND pga.sport_id = :sportid
+        $sql = "SELECT pga.id as game_id, *, AGE(pga.finished_at, pga.created_at) as duration, 1 as sport_id  FROM public.padel_game pga 
+                    WHERE pga.user_id = :userid 
                     AND pga.winner is not null
                     ORDER BY pga.created_at desc";
 
-        $stmt = $conn->executeQuery($sql, ['userid'=>$userid, 'sportid'=>$sportid]);
+        $stmt = $conn->executeQuery($sql, ['userid'=>$userid]);
 
         $resultSet = $stmt->fetchAllAssociative();
 
